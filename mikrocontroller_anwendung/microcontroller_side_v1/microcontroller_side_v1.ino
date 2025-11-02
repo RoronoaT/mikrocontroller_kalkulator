@@ -95,9 +95,9 @@ void loop() {
         	reelle_zahl1 = benutzereingabe_1.toDouble();
           reelle_zahl2 = benutzereingabe_2.toDouble();
           /* for debugging purposes
-          Serial.println("Real numbers were converted sucessfully: ");
-          Serial.println(reelle_zahl1);
-          Serial.println(reelle_zahl2);
+          Serial.print("Real numbers were converted sucessfully: ");
+          Serial.print(reelle_zahl1);
+          Serial.print(reelle_zahl2);
           */
 	      
 	      //Die Benutzeranfrage (arithmetische Operation) ausführen.
@@ -108,7 +108,7 @@ void loop() {
           if(ist_float_overflow(reelle_zahl1, reelle_zahl2))
           {
             // Float-Überlaufausnahme auslösen – Benutzer über den Fehler warnen 
-            Serial.println("Fehler: float overflow.");  
+            Serial.print("overflow.");  
           }
           else
           {
@@ -116,18 +116,18 @@ void loop() {
             // In den seriellen Port schreiben (das Ergebnis der arithmetischen Operation zurück an den Computer senden)
             if(i == 0 && arithmetische_operation == arithmetische_operationen[i]) 
             {
-              Serial.println(reelle_zahl1 + reelle_zahl2);
+              Serial.print(reelle_zahl1 + reelle_zahl2);
             }
             else if(i == 1 && arithmetische_operation == arithmetische_operationen[i])
             { 
-            Serial.println(reelle_zahl1 - reelle_zahl2);
+            Serial.print(reelle_zahl1 - reelle_zahl2);
             }
             if(i == 2 && arithmetische_operation == arithmetische_operationen[i])
             { 
-              Serial.println(reelle_zahl1 * reelle_zahl2);
+              Serial.print(reelle_zahl1 * reelle_zahl2);
             }
             if(i == 3 && arithmetische_operation == arithmetische_operationen[i]) {
-              Serial.println(reelle_zahl1 / reelle_zahl2);
+              Serial.print(reelle_zahl1 / reelle_zahl2);
             }
           }
         }
@@ -135,7 +135,7 @@ void loop() {
         else
         {
           // Den Benutzer über eine fehlgeschlagene Konvertierung warnen – die angegebenen Zahlen überschreiten den Speicherplatz für Double-Werte.
-        	Serial.println("Konvertierungsfehler: float ovf.");
+        	Serial.print("overflow.");
         }
       }
       else
@@ -154,30 +154,30 @@ void loop() {
             if(ovf) 
             {
                // Integer-Überlaufausnahme auslösen – Benutzer über den Fehler warnen
-              Serial.println("Fehler: integer overflow."); 
+              Serial.print("overflow."); 
             }
             else if(a == 0 && arithmetische_operation == arithmetische_operationen[a])
             {
-              Serial.println(natuerliche_zahl1 + natuerliche_zahl2);
+              Serial.print(natuerliche_zahl1 + natuerliche_zahl2);
             }
             else if(a == 1   && arithmetische_operation == arithmetische_operationen[a])
             { 
-              Serial.println(natuerliche_zahl1 - natuerliche_zahl2); 
+              Serial.print(natuerliche_zahl1 - natuerliche_zahl2); 
             }
             else if(a == 2  && arithmetische_operation == arithmetische_operationen[a])
             { 
-              Serial.println(natuerliche_zahl1 * natuerliche_zahl2); 
+              Serial.print(natuerliche_zahl1 * natuerliche_zahl2); 
             }
             else if(a == 3  && arithmetische_operation == arithmetische_operationen[a]) 
             {
-              Serial.println((float)natuerliche_zahl1 / (float)natuerliche_zahl2); 
+              Serial.print((float)natuerliche_zahl1 / (float)natuerliche_zahl2); 
             }        
           }
         }
         else
         {
           // Den Benutzer über eine fehlgeschlagene Konvertierung warnen – die angegebenen Zahlen überschreiten den Speicherplatz für Long-Werte.
-          Serial.println("Konvertierungsfehler: int ovf.");;
+          Serial.print("overflow");;
           return 1;
         }
       }
