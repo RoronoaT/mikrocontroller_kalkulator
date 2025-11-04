@@ -108,7 +108,7 @@ void loop() {
           if(ist_float_overflow(reelle_zahl1, reelle_zahl2))
           {
             // Float-Überlaufausnahme auslösen – Benutzer über den Fehler warnen 
-            Serial.print("overflow.");  
+            Serial.print("ovf.");  
           }
           else
           {
@@ -135,7 +135,7 @@ void loop() {
         else
         {
           // Den Benutzer über eine fehlgeschlagene Konvertierung warnen – die angegebenen Zahlen überschreiten den Speicherplatz für Double-Werte.
-        	Serial.print("overflow.");
+        	Serial.print("ovf.");
         }
       }
       else
@@ -154,7 +154,7 @@ void loop() {
             if(ovf) 
             {
                // Integer-Überlaufausnahme auslösen – Benutzer über den Fehler warnen
-              Serial.print("overflow."); 
+              Serial.print("ovf."); 
             }
             else if(a == 0 && arithmetische_operation == arithmetische_operationen[a])
             {
@@ -177,7 +177,7 @@ void loop() {
         else
         {
           // Den Benutzer über eine fehlgeschlagene Konvertierung warnen – die angegebenen Zahlen überschreiten den Speicherplatz für Long-Werte.
-          Serial.print("overflow");;
+          Serial.print("ovf");;
           return 1;
         }
       }
