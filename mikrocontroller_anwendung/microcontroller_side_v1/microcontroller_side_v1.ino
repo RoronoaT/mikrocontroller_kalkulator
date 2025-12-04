@@ -108,7 +108,7 @@ void loop() {
           if(ist_float_overflow(reelle_zahl1, reelle_zahl2))
           {
             // Float-Überlaufausnahme auslösen – Benutzer über den Fehler warnen 
-            Serial.print("ovf.");  
+            Serial.print("ovf");  
           }
           else
           {
@@ -135,7 +135,7 @@ void loop() {
         else
         {
           // Den Benutzer über eine fehlgeschlagene Konvertierung warnen – die angegebenen Zahlen überschreiten den Speicherplatz für Double-Werte.
-        	Serial.print("ovf.");
+        	Serial.print("ovf");
         }
       }
       else
@@ -154,7 +154,8 @@ void loop() {
             if(ovf) 
             {
                // Integer-Überlaufausnahme auslösen – Benutzer über den Fehler warnen
-              Serial.print("ovf."); 
+              Serial.print("ovf"); 
+              break;
             }
             else if(a == 0 && arithmetische_operation == arithmetische_operationen[a])
             {
@@ -198,13 +199,20 @@ bool sub_overflow_natuerliche(long a, long b)
   // oder kleiner als die kleinstmögliche Ganzzahl (minimaler Speicherplatz für Ganzzahlen bei Arduino Uno) ist.
   return (b < 0 && a > LONG_MAX + b) || (b > 0 && a < LONG_MIN + b);
 }
-
+/*
 bool mul_overflow_natuerliche(long a, long b) 
 {
   if (a == 0 || b == 0) return false;
   long ergebnis = a * b;
   //check, ob die Division zwischen dem Ergebnis und der zweiten Zahl die erste Zahl ergibt.
   return ergebnis / b != a;
+}
+*/
+bool mul_overflow_natuerliche(long a, long b) 
+{
+  if (a == 0 || b == 0) return false;
+  //überprüfen, ob das Ergebnis den Grenzwert überschreiten wird
+  return a > (LONG_MAX / b);
 }
 
 bool div_overflow_natuerliche(long a, long b) 

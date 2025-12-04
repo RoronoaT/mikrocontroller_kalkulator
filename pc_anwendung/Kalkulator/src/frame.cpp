@@ -259,13 +259,27 @@ void ViewPort::berechnen(wxCommandEvent& evt)
         cout << "Antwort vom Mikrocontroller: " << buffer << std::endl;
         string antwort = benutzereingabe_1 + ' ' + arithmetische_operation + ' ' + benutzereingabe_2 + " = " + buffer + '\n'; 
         wxString antwort_vom_mikrocontroller = wxString::Format("Antwort vom Mikrocontroller: %s", antwort);
-        benutzerberechnung_anfrage = buffer;
 
-        // die verarbeitete string in der Benutzeroberfläche anzeigen.
-        st0->SetLabel(wxString::Format(wxT("%s"), benutzerberechnung_anfrage ));
+        // hat der Mikrocontroller die string ovf empfangen
+        bool is_overflow = (buffer[0] == 'o') && (buffer[1] == 'v') && (buffer[2] == 'f');
 
-        //log das verarbeitete string in der status bar
-        wxLogStatus(antwort_vom_mikrocontroller);
+        if(is_overflow)
+        {
+            //log das verarbeitete string in der status bar
+            wxLogStatus("Der Speicherplatz für numerische Datentypen des Mikrocontrollers wurde überschritten.");
+            // die Antwort des Mikrocontrollers in der Benutzeroberfläche anzeigen.
+            benutzerberechnung_anfrage = "Pufferüberlauf";
+            st0->SetLabel(wxString::Format(wxT("%s"), benutzerberechnung_anfrage ));
+        }
+        else
+        {
+            //log das verarbeitete string in der status bar
+            wxLogStatus(wxString::Format("Antwort vom Mikrocontroller: %s", buffer));
+            //die Antwort des Mikrocontrollers in der Benutzeroberfläche anzeigen.
+            benutzerberechnung_anfrage = buffer;
+            st0->SetLabel(wxString::Format(wxT("%s"), benutzerberechnung_anfrage ));
+        }
+        
         
         //die Antwort des Mikrocontrollers in einer Textdatei Speichern
         string berechnungen_log = benutzereingabe_1 + arithmetische_operation + benutzereingabe_2 + '=' + benutzerberechnung_anfrage;
